@@ -28,10 +28,13 @@ jobs:
           d=`date '+%Y-%m-%d'`
           cat=`cat fetch-api-data-action/data.json`
           echo $cat > src/data/$d.json
+
       - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'chore: fetching data from content api 👻'
+        run: |
+          git config --local user.email 'theodorusclarence@gmail.com'
+          git config --local user.name 'Theodorus Clarence'
+          git add .
+          git commit -m 'chore: fetching data from content api 👻'
 
       - name: Push
         uses: ad-m/github-push-action@v0.5.0
