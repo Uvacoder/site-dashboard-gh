@@ -35,7 +35,7 @@ jobs:
           commit_user_name: Theodorus Clarence
           commit_user_email: theodorusclarence@gmail.com
           commit_author: Theodorus Clarence <theodorusclarence@gmail.com>
-          commit_message: 'chore: fetching data from content api 👻'
+          commit_message: 'chore: fetch data from content api 👻'
 
       - name: Push
         uses: ad-m/github-push-action@v0.5.0
