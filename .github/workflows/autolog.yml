@@ -16,7 +16,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-          persist-credentials: false
 
       - name: Fetch API Data 📦
         uses: JamesIves/fetch-api-data-action@1.0.19
@@ -33,10 +32,10 @@ jobs:
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'chore: fetching data from content api 👻'
           commit_user_name: Theodorus Clarence
           commit_user_email: theodorusclarence@gmail.com
           commit_author: Theodorus Clarence <theodorusclarence@gmail.com>
+          commit_message: 'chore: fetching data from content api 👻'
 
       - name: Push
         uses: ad-m/github-push-action@v0.5.0
