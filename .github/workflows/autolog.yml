@@ -32,8 +32,8 @@ jobs:
 
       - name: Commit changes
         run: |
-          git config --local user.email 'theodorusclarence@gmail.com'
-          git config --local user.name 'Theodorus Clarence'
+          git config user.email 'theodorusclarence@gmail.com'
+          git config user.name 'Theodorus Clarence'
           git add -A
           git commit -m 'chore: fetching data from content api 👻'
 
