@@ -3,7 +3,7 @@ name: Autologger
 on:
   push:
     branches:
-      - master
+      - main
 
   schedule:
     - cron: '* * * * *'
