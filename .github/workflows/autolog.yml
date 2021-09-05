@@ -1,0 +1,41 @@
+name: Autologger
+
+on:
+  push:
+    branches:
+      - master
+
+  schedule:
+    - cron: '* * * * *'
+
+jobs:
+  log-and-save:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Fetch API Data 📦
+        uses: JamesIves/fetch-api-data-action@1.0.19
+        with:
+          ENDPOINT: https://jsonplaceholder.typicode.com/todos/1
+          CONFIGURATION: '{ "method": "GET" }'
+
+      - name: Save output to folder
+        run: |
+          d=`date '+%Y-%m-%d'`
+          cat=`cat fetch-api-data-action/data.json`
+          echo $cat > src/data/$d.json
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'content: update'
+
+      - name: Push
+        uses: ad-m/github-push-action@v0.5.0
+        with:
+          force: true
+          directory: '.'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
