@@ -20,7 +20,7 @@ jobs:
       - name: Fetch API Data 📦
         uses: JamesIves/fetch-api-data-action@1.0.19
         with:
-          ENDPOINT: https://jsonplaceholder.typicode.com/todos/1
+          ENDPOINT: https://theodorusclarence.com/api/content
           CONFIGURATION: '{ "method": "GET" }'
 
       - name: Save output to folder
