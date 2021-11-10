@@ -18,14 +18,31 @@ export default function HomePage({ contentMetas }: IndexPageProps) {
     contentMetas
   );
   const [selectedDate, setSelectedDate] = React.useState(contentMetas[0].date);
+  console.log(
+    '🚀 ~ file: index.tsx ~ line 21 ~ HomePage ~ selectedDate',
+    selectedDate
+  );
+
+  function getYesterday(date: string) {
+    const yesterday = new Date(date).getTime() - 24 * 60 * 60 * 1000;
+    return new Date(yesterday).toISOString().split('T')[0];
+  }
 
   const dates = contentMetas.map((meta) => meta.date);
-  const slugs = contentMetas[0].data.map((datum) => datum.slug);
+  const slugs = contentMetas?.[0].data.map((datum) => datum.slug);
   const selectedMeta = contentMetas.find((meta) => meta.date === selectedDate);
 
   const selectDate = contentMetas.map((meta) => ({
     date: meta.date,
     ...meta.data.find((datum) => datum.slug === selectedDate),
+  }));
+
+  const mappedData = selectDate.map((d) => ({
+    ...d,
+    webViews: (d?.views ?? 0) - (d?.devtoViews ?? 0),
+    viewDiff:
+      (d?.views ?? 0) -
+      (selectDate.find((cd) => cd.date === getYesterday(d.date))?.views ?? 0),
   }));
 
   return (
@@ -43,8 +60,14 @@ export default function HomePage({ contentMetas }: IndexPageProps) {
               ))}
             </ul>
             <pre className='overflow-x-auto'>
-              {JSON.stringify(selectDate, null, 2)}
+              {JSON.stringify(mappedData, null, 2)}
             </pre>
+            {/* {selectDate[0]?.slug &&
+              selectDate.map(
+                ({ date, slug, views, likes, likesByUser, devtoViews }) => (
+                  <div key={`${date}-${slug}`}>{date}</div>
+                )
+              )} */}
           </div>
         </section>
       </main>

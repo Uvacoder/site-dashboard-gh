@@ -11,11 +11,14 @@ export async function getAllFiles() {
       'utf8'
     );
 
-    const { data }: { data: Array<Content> } = JSON.parse(source);
+    const data: Array<Content> = JSON.parse(source);
 
-    const mappedData = data.map((d) => ({
+    const mappedData = data?.map((d) => ({
       ...d,
-      likesByUser: Object.keys(d.likesByUser).length,
+      likesByUser:
+        typeof d.likesByUser === 'object'
+          ? Object.keys(d.likesByUser).length
+          : d.likesByUser,
     }));
 
     return [
